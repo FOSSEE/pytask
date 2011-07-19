@@ -177,7 +177,8 @@ def view_task(request, task_id, **kwargs):
     user = request.user
 
     if not user.is_authenticated():
-        return shortcuts.render_to_response('task/view.html', {'task': task})
+        return shortcuts.render_to_response(
+          'task/view.html', RequestContext(request, {'task': task}))
 
     profile = user.get_profile()
 
