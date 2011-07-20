@@ -112,7 +112,7 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 
   {% if can_comment %}
     Add comment:<br />
-    {% as_div_form form "Comment Form" csrf_token "Submit" %}
+    {% as_div_form form "Comment Form" csrf_token "Submit" "" "True" %}
   {% endif %}
 
 {% endblock %}

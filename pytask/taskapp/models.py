@@ -106,6 +106,7 @@ class TaskComment(models.Model):
     task = models.ForeignKey('Task', related_name="comments")
 
     data = models.TextField(verbose_name='Comment')
+    file = models.FileField(verbose_name='Upload Your file', upload_to="pytask-uploads", null=True)
 
     commented_by = models.ForeignKey(User,
                                      related_name="commented_taskcomments")

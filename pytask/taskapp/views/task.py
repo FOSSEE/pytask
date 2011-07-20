@@ -274,12 +274,12 @@ def view_task(request, task_id, **kwargs):
         context['can_mod_reviewers'] = False
 
     if request.method == 'POST':
-        form = taskapp_forms.TaskCommentForm(request.POST)
+        form = taskapp_forms.TaskCommentForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data['data']
             new_comment = taskapp_forms.TaskComment(
               task=task, data=data, commented_by=user,
-              comment_datetime=datetime.now())
+              comment_datetime=datetime.now(), file=request.FILES['file'])
             new_comment.save()
             return shortcuts.redirect(task_url)
         else:
