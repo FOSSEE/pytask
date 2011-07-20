@@ -23,7 +23,6 @@ __authors__ = [
     '"Nishanth Amuluru" <nishanth@fossee.in>',
     ]
 
-
 from datetime import datetime
 
 from django.db import models
@@ -32,6 +31,7 @@ from django.contrib.auth.models import User
 import tagging
 from tagging.fields import TagField
 
+from utils import get_file_path
 
 TASK_STATUS_CHOICES = (
         ("Unpublished", "Unpublished"),
@@ -99,6 +99,8 @@ class Task(models.Model):
 
     def __unicode__(self):
         return unicode(self.title)
+    
+            
 
 
 class TaskComment(models.Model):
@@ -106,7 +108,7 @@ class TaskComment(models.Model):
     task = models.ForeignKey('Task', related_name="comments")
 
     data = models.TextField(verbose_name='Comment')
-    file = models.FileField(verbose_name='Upload Your file', upload_to="pytask-uploads", null=True)
+    file = models.FileField(verbose_name='Upload Your file', upload_to=get_file_path, null=True)
 
     commented_by = models.ForeignKey(User,
                                      related_name="commented_taskcomments")
@@ -123,7 +125,7 @@ class TaskComment(models.Model):
 
     def __unicode__(self):
         return unicode(self.task.title)
-
+    
 
 class TaskClaim(models.Model):
 
