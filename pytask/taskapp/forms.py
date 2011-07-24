@@ -114,7 +114,7 @@ class TaskCommentForm(forms.ModelForm):
 
     class Meta:
         model = TaskComment
-        fields = ['data', 'file']
+        fields = ['data']
 
     def clean_data(self):
 

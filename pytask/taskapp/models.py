@@ -156,7 +156,11 @@ class WorkReport(models.Model):
     summary = models.CharField(max_length=1024, verbose_name="Summary",
                                help_text="A one line summary")
 
-    attachment = models.FileField(upload_to=UPLOADS_DIR)
+    attachment = models.FileField(
+      verbose_name='Your work to upload',
+      upload_to=lambda inst, fn: \
+          os.path.join(settings.UPLOAD_BASE_DIR, str(inst.task.parent.id),
+                       str(inst.task.id), fn))
 
     revision = models.PositiveIntegerField(default=0)
 
