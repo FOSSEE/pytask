@@ -273,22 +273,45 @@ def view_task(request, task_id, **kwargs):
     else:
         context['can_mod_reviewers'] = False
 
+    if (profile.role == profile_models.ROLES_CHOICES[3][0] and
+      profile.user in task.selected_users.all()):
+        context['can_report'] = True
+    else:
+        context['can_report'] = False
+
     if request.method == 'POST':
-        form = taskapp_forms.TaskCommentForm(request.POST, request.FILES)
-        if form.is_valid():
-            data = form.cleaned_data['data']
-            new_comment = taskapp_forms.TaskComment(
-              task=task, data=data, commented_by=user,
-              comment_datetime=datetime.now(), file=request.FILES['file'])
-            new_comment.save()
-            return shortcuts.redirect(task_url)
-        else:
-            context['form'] = form
+        if not request.FILES:
+            comment_form = taskapp_forms.TaskCommentForm(request.POST)
+            if comment_form.is_valid():
+                data = comment_form.cleaned_data['data']
+                new_comment = taskapp_forms.TaskComment(
+                  task=task, data=data, commented_by=user,
+                  comment_datetime=datetime.now())
+                new_comment.save()
+                return shortcuts.redirect(task_url)
+
+        if context['can_report']:
+          work_report_form = taskapp_forms.WorkReportForm(request.POST,
+                                                          request.FILES)
+          if work_report_form.is_valid():
+              data = work_report_form.cleaned_data['data']
+              summary = work_report_form.cleaned_data['summary']
+              new_work_report = taskapp_models.WorkReport(
+                task=task, data=data, submitted_by=user,
+                summary=summary, attachment=request.FILES['attachment'])
+              new_work_report.save()
+              return shortcuts.redirect(task_url)
+
+        if not comment_form.is_valid() or (
+          context['can_report'] and not work_report_form.is_valid()):
+            context['comment_form'] = comment_form
+            context['work_report_form'] = work_report_form
             return shortcuts.render_to_response(
               'task/view.html', RequestContext(request, context))
     else:
-        form = taskapp_forms.TaskCommentForm()
-        context['form'] = form
+        context['comment_form'] = taskapp_forms.TaskCommentForm()
+        if context['can_report']:
+            context['work_report_form'] = taskapp_forms.WorkReportForm
         return shortcuts.render_to_response(
           'task/view.html', RequestContext(request, context))
 
