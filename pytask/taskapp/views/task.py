@@ -208,10 +208,12 @@ def view_task(request, task_id, **kwargs):
     is_reviewer = True if user in task.reviewers.all() else False
     comments = task.comments.filter(
       is_deleted=False).order_by('comment_datetime')
+    reports = task.reports.order_by('submitted_at')
 
     context.update({'is_reviewer':is_reviewer,
                     'comments':comments,
                     'reviewers':reviewers,
+                    'reports': reports,
                    })
 
     selected_users = task.selected_users.all()

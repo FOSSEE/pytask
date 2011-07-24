@@ -115,6 +115,28 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
     {% as_div_form comment_form "Comment Form" csrf_token "Submit" %}
   {% endif %}
 
+  {% if reports %}
+
+    Work submissions:<br /><br />
+    {% for report in reports %}
+      <a href="{% url view_user_profile report.submitted_by.id %}">
+        {{ report.submitted_by.username }}
+      </a>
+      on {{ report.submitted_at|date:"D d M Y"}} at
+      {{comment.submitted_at|time:"H:i"}} wrote:
+      <br />
+      {{ report.data|linebreaksbr }}<br />
+      {% if report.attachment %}
+      {% pygment cssclass="codehilite" %}
+        <pre lang="python">
+          {% ssi report.attachment.url|safe %}
+        </pre>
+        {% endpygment %}<br/><br/><br/><br/>
+      {% endif %}
+    {% endfor %}
+
+  {% endif %}
+
   {% if can_report and work_report_form %}
     Submit work:<br />
     {% as_div_form work_report_form "Work Submission Form" csrf_token "Submit" "" "True" %}
