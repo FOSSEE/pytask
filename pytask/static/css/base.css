@@ -351,3 +351,10 @@ div #modification a:hover {
   color: red;
   font-weight: bold;
 }
+
+div.codehilite {
+  background: #F1F1F1;
+  font-size: 15px;
+  line-height: 1.2em;
+  padding: 5px 0 5px 0;
+}

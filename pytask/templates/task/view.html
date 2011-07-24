@@ -19,10 +19,17 @@ You should have received a copy of the GNU General Public License
 along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment%}
 
+{% load ssi from future %}
+
+{% load pygmentify %}
 
 {% load form_helpers %}
 {% load browse_helpers %}
 
+{% block css %}
+<link type="text/css" href="/pytask/static/css/pygments.css"
+      rel="stylesheet" />
+{% endblock %}
 
 {% block title %}
   {{ task.title }}
