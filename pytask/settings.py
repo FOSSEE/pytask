@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'registration',
     'tagging',
     'south',
+    'django_pygments',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
