@@ -219,7 +219,7 @@ def AddTaskForm(task_choices, is_plain=False):
     return myForm()
 
 def AssignPyntForm(choices, instance=None):
-    
+
     class myForm(forms.Form):
         user = forms.ChoiceField(choices=choices, required=True)
         pynts = forms.IntegerField(min_value=0, required=True, help_text="Choose wisely since it cannot be undone.")

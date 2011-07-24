@@ -100,8 +100,6 @@ class Task(models.Model):
 
     def __unicode__(self):
         return unicode(self.title)
-    
-            
 
 
 class TaskComment(models.Model):
@@ -208,7 +206,7 @@ class PyntRequest(models.Model):
 
     remarks = models.CharField(max_length=100, blank=True,
                                help_text="Reason in case of rejection")
-            
+
     request_datetime = models.DateTimeField(auto_now_add=True)
 
     is_responded = models.BooleanField(default=False)
