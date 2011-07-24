@@ -23,15 +23,18 @@ __authors__ = [
     '"Nishanth Amuluru" <nishanth@fossee.in>',
     ]
 
+
 from datetime import datetime
 
+import os
+
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
 import tagging
 from tagging.fields import TagField
 
-from utils import get_file_path
 
 TASK_STATUS_CHOICES = (
         ("Unpublished", "Unpublished"),
@@ -47,8 +50,6 @@ TB_STATUS_CHOICES = (
     ("Open", "Open"),
     ("All tasks have users selected", "All tasks have users selected"),
     ("Completed", "Completed"))
-
-UPLOADS_DIR = "/pytask/static/uploads"
 
 
 class Task(models.Model):
@@ -108,7 +109,6 @@ class TaskComment(models.Model):
     task = models.ForeignKey('Task', related_name="comments")
 
     data = models.TextField(verbose_name='Comment')
-    file = models.FileField(verbose_name='Upload Your file', upload_to=get_file_path, null=True)
 
     commented_by = models.ForeignKey(User,
                                      related_name="commented_taskcomments")
