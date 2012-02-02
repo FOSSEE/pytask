@@ -157,7 +157,7 @@ class WorkReport(models.Model):
     attachment = models.FileField(
       verbose_name='Your work to upload',
       upload_to=lambda inst, fn: \
-          os.path.join(settings.UPLOAD_BASE_DIR, str(inst.task.parent.id),
+          os.path.join(str(inst.task.parent.id),
                        str(inst.task.id), fn))
 
     revision = models.PositiveIntegerField(default=0)

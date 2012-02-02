@@ -27,8 +27,9 @@ __authors__ = [
     '"Madhusudan.C.S" <madhusudancs@fossee.in>',
     ]
 
-
+import os
 from django import template
+from django.conf import settings
 
 
 register = template.Library()
@@ -77,3 +78,14 @@ def as_tags(tags):
     return {
       'tags': tags,
       }
+
+@register.inclusion_tag('templatetags/_as_full_path.html')
+def as_full_path(path):
+    """Returns a full path of the file with reference  
+    to the settings.UPLOAD_BASE_DIR"""
+    
+    fullpath = os.getcwd()+path
+        
+    return{
+           'fullpath': fullpath
+        }

@@ -1,5 +1,3 @@
-{% extends "base.html" %}
-
 {% comment %}
 Copyright 2011 Authors of PyTask.
 
@@ -19,31 +17,7 @@ You should have received a copy of the GNU General Public License
 along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment%}
 
+{% load ssi from future %}
 
-{% block title %}
-  {{task.title}}
-{% endblock %}
 
-{% block content %}
-
-  {% if not old_reports %}
-    There are no reports submitted as of now<br />
-  {% else %}
-
-    <table >
-      {% for rep in old_reports %}
-        <tr>
-          <td>{{rep.submitted_by}}</td>
-          <td><a href="{% url view_report rep.id %}">{{rep.data}}</a></td>
-          <td><a href="{{rep.attachment.url}}">Download</a> </td>
-        </tr>
-    {% endfor %}
-    </table>
-
-  {% endif %}
-
-  {% if is_working %}
-    <a href="{% url submit_report task.id %}">Submit report</a>
-    <hr />
-  {% endif %}
-{% endblock %}
+{% ssi fullpath %}

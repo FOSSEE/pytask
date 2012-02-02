@@ -136,7 +136,7 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
       {% if report.attachment %}
       {% pygment cssclass="codehilite" %}
         <pre lang="python">
-          {% ssi report.attachment.url|safe %}
+          {% as_full_path report.attachment.url %}
         </pre>
         {% endpygment %}<br/><br/><br/><br/>
       {% endif %}

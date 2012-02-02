@@ -30,6 +30,8 @@ import os
 
 from pytask.local import *
 
+ROOT = os.path.dirname(__file__)
+
 
 ADMINS = (
     ('Madhusudan C.S.', 'madhusudancs@fossee.in'),
@@ -65,7 +67,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'uploads')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/pytask/media/'
+MEDIA_URL = '/pytask/uploads/'
 
 # Absolute path to the directory that holds static files.
 # Example: "/home/static-files/static-files.lawrence.com/"
@@ -145,4 +147,4 @@ DEFAULT_FROM_EMAIL = 'FOSSEE Admin <admin@fossee.in>'
 
 UPLOAD_BASE_DIR = os.path.join(MEDIA_ROOT, 'pytask')
 
-ALLOWED_INCLUDE_ROOTS = (UPLOAD_BASE_DIR,)
+ALLOWED_INCLUDE_ROOTS = (UPLOAD_BASE_DIR, MEDIA_ROOT,)

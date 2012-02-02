@@ -62,7 +62,7 @@ urlpatterns = patterns('',
 # Serve static files in DEVELOPMENT = True mode
 if settings.DEVELOPMENT:
     urlpatterns += patterns('',
-        (r'^pytask/media/(?P<path>.*)$', 'django.views.static.serve',
+        (r'^pytask/uploads/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.MEDIA_ROOT}),
         (r'^pytask/static/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.STATIC_ROOT}),
