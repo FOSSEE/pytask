@@ -20,28 +20,12 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment%}
 
 
-{% load form_helpers %}
-
-
-{% block js %}
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("#id_dob").datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeMonth: true,
-      changeYear: true,
-      minDate: "-90y",
-      maxDate: "+0D",
-      yearRange: "-90",
-      defaultDate: '1985-01-01'
-    });
-  });
-</script>
-{% endblock %}
-
-
 {% block content %}
-<center><h2> Registration </h2></center>
- {% url registration_register as registration_url %}
-  {% as_div_form form "Create Profile Form" csrf_token "Submit" registration_url %}
+<center><h2> Books Under Progress </h2></center><br/>
+<ul>
+   <li>Mechanics of Materials by J.M. Gere
+   <li>Fluid Mechanics by F M White
+   <li>Mechanics of Materials by J.M. Gere - module 3(Chapter 4)
+</ul>
+    
 {% endblock %}

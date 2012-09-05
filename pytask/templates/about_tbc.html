@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% comment %}
+Copyright 2011 Authors of PyTask.
+
+This file is part of PyTask.
+
+PyTask is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PyTask is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+for more details.
+
+You should have received a copy of the GNU General Public License
+along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
+{% endcomment%}
+
+{% block js %}
+<script type='text/javascript'>
+function data(showHideDiv)
+{
+       var ele=document.getElementById(showHideDiv);
+       if (ele.style.display=="block")
+       {
+               ele.style.display = "none";
+       }
+       else
+       {
+               ele.style.display = "block";
+       }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<center><h2> Textbook Companion Project </h2></center>
+
+<a href="" onClick="data('contri'); return false;" style="cursor:pointer;" />How do I contribute?</strong></p></a>
+<div id="contentDiv">
+     <div id="contri" style="padding:5px; display:none;">
+        <p><h4> Anyone can contribute to the project. </p>
+    Stage 1</h4>
+    <ul>
+        <li>Contributor should visit the website to check the books that have already been selected by others and send proposals. This is to avoid multiple contributors working on same book.
+        <li>Contributor selects 3 textbooks of his/her choice and sends the proposal to the reviewer at textbook@fossee.in
+        <li>Reviewer selects the textbook from the sent proposals after resolving the deadlocks(multiple
+            proposals for the same book) and requests proposal examples from the contributor.
+        <li>Contributor sends the required solved examples programmed in Python as instructed by the reviewer.
+        <li>Reviewer reviews the pilot examples and gives consent for further work.
+        <li>The estimated time to complete a book shall be notified at this point.
+        <li>The contributor can now start working on the respective book.
+        <li>The website will be updated with the names of the book on which work has begun along with other details.
+    </ul>
+    <h4>Stage 2</h4>
+    <ul>
+        <li>Contributor is required to update the progress of the work as per reviewer's request.
+        <li>Thorough review will be done whenever content is submited & the contributor will be notified for any changes, if required
+        <li>On completion of fifty percent of the work, the contributor would receive partial payment(as per reviewer's discretion).
+        <li>On completion of the entire textbook, the rest of the payment shall be paid to the contributor.
+       
+     </div>
+</div>
+<a href="" onClick="data('goodies'); return false;" style="cursor:pointer;" />Goodies</strong></p></a>
+<div id="contentDiv">
+     <div id="goodies" style="padding:5px; display:none;">
+        <p>  
+    <ul>
+    <li>Submit a minimum of 30 solved examples.
+    <li>For 30-59 solved examples, Contributor gets 2,000 INR
+    <li>For 60-100 solved examples, Contributor gets 10,000 INR
+    <li>Exceptional contributions will be rewarded at Principal Investigator's discretion.
+    <li>More than anything else, the satisfaction that you are making the world a little bit better!
+    </ul>
+
+ </p>
+     </div>
+</div>
+<a href="" onClick="data('disclaimer'); return false;" style="cursor:pointer;" />Disclaimer</strong></p></a>
+<div id="contentDiv">
+     <div id="disclaimer" style="padding:5px; display:none;">
+        <p>   
+    <ol>
+    <li>This work is not meant to count for any academic credit and is totally out of the scope of your curriculum.
+    <li>All payments will be made only after the completion of the assigned/chosen task(s).
+    <li>All the code generated (and other content on the site), is licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/in/deed.en" target="_blank"> Creative Commons Attribution-ShareAlike 2.5 India (CC BY-SA 2.5)</a>
+        </ol>
+
+</p>
+     </div>
+</div>
+<a href="" onClick="data('faqs'); return false;" style="cursor:pointer;" />FAQs</strong></p></a>
+<div id="contentDiv">
+     <div id="faqs" style="padding:5px; display:none;">
+        <p>    
+    <ul>
+    <p><li>What is the last date to finish my textbook?
+
+    <br><b>Ans: </b>Time duration shall be provided by the reviewer.<br>
+   
+    <p><li>If I am unable to finish within the time frame, can I continue ?
+
+    <br><b>Ans: </b>In such cases, you are required to contact the reviewer as early as possible. <br>
+
+    <p><li>Is this only for Computer Science students and their textbooks?
+
+    <br><b>Ans: </b>No! Any course that needs computational tasks to be performed, is under our purview.<br>
+   
+    <p><li>I want to convert only a few chapters. Is that OK?
+
+    <br><b>Ans: </b>Yes, you will have to talk to the respective reviewer.<br>
+   
+    <p><li>I have no idea of any of the opensource tools mentioned. Is that OK?
+
+    <br><b>Ans: </b>Absolutely, the whole idea is to spread the goodness of these tools. You can pick up the basics during an initial workshop and learn more as you go along.<br>
+   
+    <p><li>Can I take a textbook from another department?
+
+    <br><b>Ans: </b>Yes, you will have to talk to the reviewer.<br>
+   
+    <p><li>I am a freshman. Can I be a part of this?
+
+    <br><b>Ans: </b>Yeah! The earlier you get hold of these tools the better.<br>
+   
+    <p><li>Which textbooks do we need to code?
+
+    <br><b>Ans: </b>Any book that needs computational tools.<br>
+   
+    <p><li>Can I use C/C++?
+
+    <br><b>Ans: </b>Yes you may, however, you will not be paid.<br>
+   
+    <p><li>Can I use Java?
+
+    <br><b>Ans: </b>Are you kidding? ;)
+  
+    <p><li>Can I use software X?
+
+    <br><b>Ans: </b>Yes, as long as X is <a href="http://opensource.org/docs/osd" target="_blank">Open-source</a>, does a great job for that particular course and the reviewer is comfortable with reviewing and approving your code.
+
+ </p>
+     </div>
+</div>
+<a href="" onClick="data('contact'); return false;" style="cursor:pointer;" />Contact</strong></p></a>
+<div id="contentDiv">
+     <div id="contact" style="padding:5px; display:none;">
+        <p>
+    <ul>
+    <li>Mail - textbooks@fossee.in
+    <li>Contact No.: 022-25764133
+    </ul>
+
+ </p>
+     </div>
+</div>
+
+
+
+
+
+
+ 
+{% endblock %}

@@ -30,7 +30,8 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
   Load site wide CSS here. Additional styling must be
   loaded in the block that follows
   {% endcomment %}
-  <link rel=stylesheet href="/pytask/static/css/base.css" type="text/css" >
+  <!--link rel=stylesheet href="/pytask/static/css/base.css" type="text/css" -->
+  <link rel=stylesheet href="/pytask/static/css/base1.css" type="text/css">
   <link type="text/css"
       href="/pytask/static/css/jquery/ui/cupertino/jquery-ui-1.8.9.custom.css"
       rel="stylesheet" />
@@ -62,58 +63,73 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 </head>
 
 
-<body>
-  <div id="wrapper">
-    <div id="header">
-      <h2><a href="{% url home_page %}">PyTask</a></h2>
-    </div>
+<body {% block onload %}{% endblock %}>
+<div class="topbar">
+  <div class="fill">
+     <div class="container">
+        <h3 class="brand"><strong>PyTask</h3></strong>
+        <div class="nav-collapse">
+                    <ul style="float:right;">
+                        <li>
+                            <a href="http://fosseeapps.in">Home</a>
+                        </li>
+                        <li>
+                            <a href="http://fosseeapps.in/stproject">STApp</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://fosseeapps.in/pytask">PyTask</a>
+                        </li>
+                        <li>
+                            <a href="http://fossee.in/online_test">Online Test</a>
+                        </li>
+                    </ul>
+                </div>
+     </div>
+   </div>
+</div>
+  <div class="container">
+        {% if uberbar_message %}
+            {% as_uberbar uberbar_message %}
+        {% endif %}
+     <div class="content">
+         
 
-    <!-- Additional container divs are used here to do the liquid 3-column
-         layout trick in CSS. -->
-    <div id="container1">
-    <div id="container2">
-
-      <!-- Generate Uberbar if the uberbar_message is present -->
-      {% if uberbar_message %}
-        {% as_uberbar uberbar_message %}
-      {% endif %}
-
-
-      <div id="left">
+        <div class=row>
+            <div id="left">
         {% include '_left_sidebar.html' %}
 
         {% block leftsidebar %}
           {% comment %}Additional Left Sidebar elements go here{% endcomment %}
         {% endblock leftsidebar %}
       </div>
-
-      <div id="center">
-        {% block content %}This is the default content{% endblock content %}
-      </div>
-
-      <div id="right">
-        {% block rightsidebar %}
-          {% comment %}Additional Right Sidebar elements go here{% endcomment %}
-        {% endblock rightsidebar %}
-        {% include "_right_sidebar.html" %}
-      </div>
-    </div>
-    </div>
-    <div class="clearer">
-    </div>
-    <div id="footer">
-      <div id="designed">
-        Designed by <a href="http://fossee.in">FOSSEE</a>
-      </div>
-
-      <div id="contact">
-        If you have any trouble using this website, please write to
-        <a href="mailto:info@fossee.in?subject=Trouble in using PyTask website">
-        "FOSSEE &lt;info [ symbol looking like a ] fossee [symbol when you are done] in&gt;"
-        </a>
-      </div>
-    </div>
-  </div> 
+            <div class=span15>
+            
+               {% block content %}This is the default content{% endblock content %}
+            </div>
+        <!--div id="right">
+            {% block rightsidebar %}
+              {% comment %}Additional Right Sidebar elements go here{% endcomment %}
+            {% endblock rightsidebar %}
+            {% include "_right_sidebar.html" %}
+      </div-->
+         </div>
+          
+     </div>
+     <footer>
+     <p>&copy; FOSSEE group, IIT Bombay</p>
+     <center><a target="_blank" title="fossee" href="http://www.fossee.in">
+    <img height="50px" src="/pytask/static/images/form/fossee.jpeg">
+    </a></center>
+     </footer>
+  </div>
 
 </body>
 </html>
+
+
+
+
+
+
+
+

@@ -18,7 +18,7 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment%}
 
 
-{% load user_tags %}
+<!--{% load user_tags %}
 
 <div id="useraction">
   {% if user.is_authenticated %}
@@ -45,15 +45,16 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
         <div id="error">
           Username/Password did not match
         </div>
-        <div id="field">
-          <label for="username">Username</label>
+        <!--div id="field"-->
+          <!--label for="username">Username</label>
           <input id="username" type="text" name="username" />
-        </div>
-        <div id="field">
+        <!--/div-->
+        <!--div id="field">
           <label for="password">Password</label>
           <input id="password" type="password" name="password" />
-        </div>
-        <p class="submit"><button type="submit">Login</button></p>
+        </div><br>
+        <center><button class=btn type="submit">Login</button>
+        <button class=btn type="reset">Cancel</button></center>
         </div>
     </form>
   
@@ -61,10 +62,9 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
       <div id="register">
         <a href="{% url registration_register %}" title="register">
           Register
-        </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </a><br>
         <a href="{% url auth_password_reset %}">Forgot password?</a>
       </div>
     </div>
   {% endif %}
-</div>
+</div-->

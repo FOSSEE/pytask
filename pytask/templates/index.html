@@ -21,9 +21,13 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 
 
 {% block content %}
-    {% if not user %}
-    Checkout the tasks on the left panel for tasks that have been recently created.<br />
-    Checkout the textbooks for textbooks that have been added to the project.<br />
+    {% if not profile.user %}
+    <br />
+    <p align="justify" style="font-size:13pt">The Textbook Companion Project is an initiative by the FOSSEE Group, located at Aerospace Department, IIT-Bombay. The aim of the project is to create a repository of reference material in the form of solved problems for Scientific Computing with Open Source tools.</p>
+
+    <p align="justify" style="font-size:13pt">The initial plan is to take up a set of text books and have the (solved and unsolved) problems implemented/coded in an Open Source language like Python, Scilab or Sage. This repository of material would be Open Source and be made public under a Creative Commons license. We hope that this repository will act as a helping aid, for students all over the country to adopt these open source tools for their computational needs, both curricular and extra-curricular.</p>
+
+    <p align="justify" style="font-size:13pt">Ideally, such a project should have students from all over the country, participating. As a start, we would like the students of IIT-B participate and set an example for other students to follow. We plan to kickoff this project with an initial workshop to introduce the folks to these opensource tools. If needed, FOSSEE team may conduct more workshops, as we go along. </p>
 
     {% else %}
         Logged in as {{ user.username }} <br /><br />

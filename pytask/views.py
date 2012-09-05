@@ -69,6 +69,18 @@ def home_page(request):
 
     return render_to_response("index.html", RequestContext(request, context))
 
+def internship_form(request):
+    return render_to_response("internship_forms.html")
+
+def converted_textbooks(request):
+    return render_to_response("converted_textbooks.html")
+
+def books_in_progress(request):
+    return render_to_response("books_under_progress.html")
+
+def about_tbc(request):
+    return render_to_response("about_tbc.html")
+
 def under_construction(request):
 
     return render_to_response("under_construction.html")

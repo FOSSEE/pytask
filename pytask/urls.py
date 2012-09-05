@@ -42,14 +42,17 @@ from pytask.profile.forms import CustomRegistrationForm
 # user_registered signal sent by the django-registration app. Also, to
 # avoid cyclic imports, there is no better place than here.
 import pytask.profile.regbackend
-
+from views import *
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'pytask.views.home_page', name='home_page'),
     (r'^admin/', include(admin.site.urls)),
-
+    url(r'^internship_forms/$',internship_form),
+    url(r'^booksUnderProgress/$',books_in_progress),
+    url(r'^ConvertedTextBooks/$',converted_textbooks),
+    url(r'^about/$',about_tbc),
     url(r'^accounts/register/$', register,
         {'form_class': CustomRegistrationForm,
          'backend': 'registration.backends.default.DefaultBackend'},
