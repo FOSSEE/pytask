@@ -47,19 +47,19 @@ from views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^pytask/$', 'pytask.views.home_page', name='home_page'),
+    url(r'^$', 'pytask.views.home_page', name='home_page'),
     (r'^admin/', include(admin.site.urls)),
     url(r'^pytask/internship_forms/$',internship_form),
     url(r'^pytask/booksUnderProgress/$',books_in_progress),
     url(r'^pytask/ConvertedTextBooks/$',converted_textbooks),
     url(r'^pytask/about/$',about_tbc),
-    url(r'^accounts/register/$', register,
+    url(r'^pytask/accounts/register/$', register,
         {'form_class': CustomRegistrationForm,
          'backend': 'registration.backends.default.DefaultBackend'},
         name='registration_register'),
-    (r'^accounts/', include('registration.urls')),
-    (r'^profile/', include('pytask.profile.urls')),
-    (r'^task/', include('pytask.taskapp.urls')),
+    (r'^pytask/accounts/', include('registration.urls')),
+    (r'^pytask/profile/', include('pytask.profile.urls')),
+    (r'^pytask/task/', include('pytask.taskapp.urls')),
 )
 
 # Serve static files in DEVELOPMENT = True mode
