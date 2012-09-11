@@ -47,12 +47,12 @@ from views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'pytask.views.home_page', name='home_page'),
+    url(r'^pytask/$', 'pytask.views.home_page', name='home_page'),
     (r'^admin/', include(admin.site.urls)),
-    url(r'^internship_forms/$',internship_form),
-    url(r'^booksUnderProgress/$',books_in_progress),
-    url(r'^ConvertedTextBooks/$',converted_textbooks),
-    url(r'^about/$',about_tbc),
+    url(r'^pytask/internship_forms/$',internship_form),
+    url(r'^pytask/booksUnderProgress/$',books_in_progress),
+    url(r'^pytask/ConvertedTextBooks/$',converted_textbooks),
+    url(r'^pytask/about/$',about_tbc),
     url(r'^accounts/register/$', register,
         {'form_class': CustomRegistrationForm,
          'backend': 'registration.backends.default.DefaultBackend'},
