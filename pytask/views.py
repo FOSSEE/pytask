@@ -69,6 +69,9 @@ def home_page(request):
 
     return render_to_response("index.html", RequestContext(request, context))
 
+def tbc_example(request):
+    return render_to_response("tbc_example.html")
+
 def internship_form(request):
     return render_to_response("internship_forms.html")
 
