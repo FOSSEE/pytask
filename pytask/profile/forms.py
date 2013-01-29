@@ -61,6 +61,15 @@ class CustomRegistrationForm(RegistrationFormUniqueEmail):
                               field of interests etc.,"
                              )
 
+    collage_company = forms.CharField(required=True, max_length=50, 
+                                label="Collage/Company", 
+                                help_text="Name of your Collage/Company")
+
+
+    dept_designation = forms.CharField(required=True, max_length=50, 
+                                label="Department/Designation", 
+                                help_text="Name of your Department/Degnation")
+
 
     dob = forms.DateField(help_text = "yyyy-mm-dd", required=True,
                           label=u'Date of Birth')

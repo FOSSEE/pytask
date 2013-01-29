@@ -62,7 +62,7 @@ class Profile(models.Model):
                             choices=ROLES_CHOICES,
                             default=u"Contributor")
 
-    pynts = models.PositiveSmallIntegerField(default=0)
+    #pynts = models.PositiveSmallIntegerField(default=0)
 
     aboutme = models.TextField(
       blank = True,

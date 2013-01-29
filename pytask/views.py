@@ -82,5 +82,4 @@ def about_tbc(request):
     return render_to_response("about_tbc.html")
 
 def under_construction(request):
-
     return render_to_response("under_construction.html")
