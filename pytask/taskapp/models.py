@@ -245,6 +245,16 @@ class TextBook(models.Model):
     last_modified = models.DateTimeField(auto_now=True,
                                          default=datetime.now())
 
-
 tagging.register(Task)
 tagging.register(TextBook)
+# THIS MODEL IS USED FOR NEW PROPOSALS
+class Book (models.Model):
+	name = models.CharField(max_length=512)
+	author = models.CharField(max_length=512)
+	details = models.CharField(max_length=2048)
+
+class Proposal(models.Model):
+	user = models.ForeignKey(User)
+	textbooks = models.ManyToManyField(Book,related_name="proposed_textbooks")
+	accepted = models.ForeignKey(Book,related_name="approved_textbook")
+

@@ -233,25 +233,25 @@ a
 										<li><a href='/pytask/about/'><span>Textbook Companion Project</span></a></li>
 									</ul>
 									</li>
-									<!--{% if user_loggedin %}
+									{% if not user_loggedin %}
 									<li class='has-sub '><a><span>My Account</span></a>
 									<ul>
-										<li><a href='#'><span>Submit New Proposal</span></a></li>
+										<li><a href='/pytask/submit-new-proposal'><span>Submit New Proposal</span></a></li>
 										<li><a href='#'><span>Proposal Status</span></a></li>
 										<li><a href='#'><span>Submit Codes</span></a></li>
 										<li><a href='#'><span>My Profile</span></a></li>
 									</ul>
 									</li>
-									{% endif %}-->
+									{% endif %}
 								</ul>
 							</div>
 						</li>
 					</ul>
 					
-					<!--ul style="float:right;">
+					<ul style="float:right;">
 						<li id=cssmenu>
 						<ul  style="float:right;">
-						{% if not user_loggedin %}
+						{% if user_loggedin %}
 						<li><a href='/pytask/accounts/login/'><span>Login</span></a></li>
 						<li><a href='/pytask/accounts/register/'><span>Sign-Up</span></a></li>
 						{% else %}
@@ -259,7 +259,7 @@ a
 						{% endif %}
 						</ul></li>
 						
-                    </ul-->
+                    </ul>
                  
                 </div>
      </div>
@@ -282,15 +282,15 @@ a
      <div class="content">
          
 
-        <div class=row>
+         <!--div class=row>
             <div id="left">
         {% include '_left_sidebar.html' %}
 
         {% block leftsidebar %}
           {% comment %}Additional Left Sidebar elements go here{% endcomment %}
         {% endblock leftsidebar %}
-      </div>
-            <div class=span15>
+      </div-->
+            <div>
             
                {% block content %}This is the default content{% endblock content %}
             </div>
@@ -304,7 +304,7 @@ a
           
      </div>
      <footer>
-     <p>&copy; FOSSEE group, IIT Bombay</p>
+     <center><p>&copy; FOSSEE group, IIT Bombay</p></center>
      <center><a target="_blank" title="fossee" href="http://www.fossee.in">
     <img height="50px" src="/pytask/static/images/form/fossee.jpeg">
     </a></center>
@@ -313,6 +313,9 @@ a
 
 </body>
 </html>
+
+
+
 
 
 

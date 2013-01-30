@@ -43,5 +43,5 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 {% block content %}
 <center><h2> Registration </h2></center>
  {% url registration_register as registration_url %}
-  {% as_div_form form "Create Profile Form" csrf_token "Submit" registration_url %}
+  <div style="margin-left:50px;">{% as_div_form form "Create Profile Form" csrf_token "Submit" registration_url %}</div>
 {% endblock %}

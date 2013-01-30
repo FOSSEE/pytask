@@ -201,7 +201,7 @@ body {
 
 }
 .container {
-  width: 1200px;
+  width: 900px;
   margin-left: auto;
   margin-right: auto;
   zoom: 1;
@@ -212,7 +212,7 @@ body {
 .container > .content {
   background-color: #fff;
   padding: 20px;
-  margin-top:7%;
+  margin-top:9%;
   min-height : 490px;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
@@ -332,7 +332,12 @@ a:hover {
   width: 820px;
 }
 .span15 {
-  width: 880px;
+  background-color: #e3e3e3;
+  padding-top: 10px;
+  margin-left: 20%;
+  border: 1px solid;
+  border-radius:12px;
+  width: 60%;
 }
 .span16 {
   width: 940px;
@@ -658,7 +663,7 @@ select,
   display: inline-block;
   width: 210px;
   height: 18px;
-  padding: 12px;
+  padding: 5px;
   width:190px;
   font-size: 13px;
   line-height: 18px;
@@ -696,11 +701,9 @@ input[type=button], input[type=reset], input[type=submit] {
   height: auto;
 }
 select, input[type=file] {
-  height: 27px;
-  *height: auto;
+  height: 30px;
+  width: 220px;
   line-height: 27px;
-  *margin-top: 4px;
-  /* For IE7, add top margin to align select with labels */
 
 }
 select[multiple] {
@@ -2093,10 +2096,15 @@ div #loginform #error {
 }
 
 div #form {
-  margin-left:55px;
   padding-top: 10px;
-  width: 100%;
-  background: url('/pytask/static/images/form/form_top.gif') no-repeat 0 0;
+  width: 105%;
+  margin-left: auto;
+  margin-right:auto;
+}
+div #form2 {
+  padding-top: 10px;
+  width: 105%;
+  margin-left: 30px;
 }
 
 div #form #field, #form #field-required {
@@ -2122,10 +2130,10 @@ div #form #field input, #form #field textarea {
 }
 
 div #form #field-required input, #form #field-required textarea {
-  width: 44%;
+  width: 45%;
   clear: left;
   padding: .5%;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 div #form #field textarea, #form #field-required textarea {
@@ -2134,9 +2142,8 @@ div #form #field textarea, #form #field-required textarea {
 }
 
 div #form p.submit {
-  clear: both;
-  padding: 20px 5% 20px 32%;
-  margin:0;
+  margin-left: 175px;
+  margin-top: 10px;
 }
 
 /* Login Form related CSS */

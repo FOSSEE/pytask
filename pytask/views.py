@@ -28,6 +28,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from pytask.profile import models as profile_models
+from pytask.taskapp.forms import *
 
 
 def show_msg(user, message, redirect_url=None, url_desc=None):
@@ -83,3 +84,14 @@ def about_tbc(request):
 
 def under_construction(request):
     return render_to_response("under_construction.html")
+    
+def submit_new_proposal(request):
+	user = request.user
+	#if not user.is_authenticated():
+	#	return render_to_response("404.html")
+	if request.method == "POST" :
+		return render_to_response("submit_new_proposal.html")
+	books = []
+	for i in range(3):
+		books.append(BookForm())
+	return render_to_response("submit_new_proposal.html",{'forms':books})

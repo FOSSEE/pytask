@@ -23,7 +23,8 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
 {% load form_helpers %}
 
 {% block content %}
+<center><h2>Login</h2></center>
   {% url auth_login as login_url %}
-  {% as_div_form form "Login Form" csrf_token "Login" login_url %}
-  <a href="{% url auth_password_reset %}">Forgot password?</a>
+  <div class=span15>{% as_div_form form "Login Form" csrf_token "Login" login_url %}
+  <center><a style="padding-right:50px;" href="{% url auth_password_reset %}">Forgot password?</a></center></div>
 {% endblock %}
