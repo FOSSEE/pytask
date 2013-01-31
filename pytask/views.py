@@ -30,6 +30,7 @@ from django.template import RequestContext
 from pytask.profile import models as profile_models
 from pytask.taskapp.forms import *
 from django.http import HttpResponse
+from pytask.taskapp.models import *
 
 
 def show_msg(user, message, redirect_url=None, url_desc=None):
@@ -92,10 +93,26 @@ def submit_new_proposal(request):
 	#	return render_to_response("404.html")
 	if request.method == "POST" :
 		book_names = request.POST.getlist('book_name')
-		authors = request.POST.getlist('authors')
+		author = request.POST.getlist('author')
 		details = request.POST.getlist('details')
-		return HttpResponse(book_names)
+		for i in range(len(book_names)) :
+			a = Book()
+			a.book_name = book_names[i]
+			a.author = author[i]
+			a.details = details[i]
+			a.save()
+		old_proposal = Proposal.objects.get(user=user)
+		if not old_proposal == None:
+			for old in old_proposal:
+				old.delete()
+		new_proposal = Proposal()
+		new_proposal.user = user
+		books = Book.objects.all()[-3]		
+		for book in books:
+			new_proposal.textbooks.add(book)
+		new_proposal.save()
 	books = []
 	for i in range(3):
 		books.append(BookForm())
-	return render_to_response("submit_new_proposal.html",{'forms':books})
+	return render_to_response("submit_new_proposal.html",{'forms':books},
+						context_instance=RequestContext(request))

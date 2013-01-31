@@ -36,10 +36,9 @@ from pytask.taskapp.models import Book
 
 
 class BookForm(forms.Form):
-	book_name = forms.CharField(widget = forms.Textarea(attrs={'cols': 40,'rows': 1}))
-	author = forms.CharField(widget = forms.Textarea(attrs={'cols': 40,'rows': 1}))
-	details = forms.CharField(widget = forms.Textarea(attrs={'cols': 40, 
-            'rows': 2}))
+	book_name = forms.CharField(max_length=30)
+	author = forms.CharField(max_length=30)
+	details = forms.CharField(widget = forms.Textarea(attrs={'cols': 40,'rows': 2}))
             
 	def save(self):
 		book_name = self.cleaned_data["book_name"]
