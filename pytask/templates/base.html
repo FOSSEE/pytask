@@ -233,7 +233,7 @@ a
 										<li><a href='/pytask/about/'><span>Textbook Companion Project</span></a></li>
 									</ul>
 									</li>
-									{% if not user_loggedin %}
+									{% if user_loggedin %}
 									<li class='has-sub '><a><span>My Account</span></a>
 									<ul>
 										<li><a href='/pytask/submit-new-proposal'><span>Submit New Proposal</span></a></li>
@@ -254,7 +254,7 @@ a
 						{% if user_loggedin %}
 						<li><a href='/pytask/accounts/login/'><span>Login</span></a></li>
 						<li><a href='/pytask/accounts/register/'><span>Sign-Up</span></a></li>
-						{% else %}
+						{% else if user_loggedin %}
 						<li><a href='/pytask/accounts/logout/'><span>Logout</span></a></li>
 						{% endif %}
 						</ul></li>
