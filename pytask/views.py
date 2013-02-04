@@ -31,7 +31,7 @@ from pytask.profile import models as profile_models
 from pytask.taskapp.forms import *
 from django.http import HttpResponse
 from pytask.taskapp.models import *
-
+from django.core.mail import send_mail
 
 def show_msg(user, message, redirect_url=None, url_desc=None):
     """ simply redirect to homepage """
@@ -80,6 +80,10 @@ def converted_textbooks(request):
 
 def books_in_progress(request):
     return render_to_response("books_under_progress.html")
+   
+def tbc_example(request):
+	return render_to_response("tbc_example.html")
+
 
 def about_tbc(request):
     return render_to_response("about_tbc.html")
@@ -97,20 +101,22 @@ def submit_new_proposal(request):
 		details = request.POST.getlist('details')
 		for i in range(len(book_names)) :
 			a = Book()
-			a.book_name = book_names[i]
+			a.name = book_names[i]
 			a.author = author[i]
 			a.details = details[i]
 			a.save()
-		old_proposal = Proposal.objects.get(user=user)
-		if not old_proposal == None:
-			for old in old_proposal:
-				old.delete()
+		
 		new_proposal = Proposal()
-		new_proposal.user = user
-		books = Book.objects.all()[-3]		
+		new_proposal.user = request.user
+		books = list(Book.objects.all())[-3:]
+		new_proposal.accepted = books[0]
+		new_proposal.save()
 		for book in books:
 			new_proposal.textbooks.add(book)
-		new_proposal.save()
+		try:
+			send_mail('Subject here', 'Here is the message.', 'jayparikh111@gmail.com',['jayparikh111@gmail.com'], fail_silently=False)
+		except:
+			pass
 	books = []
 	for i in range(3):
 		books.append(BookForm())

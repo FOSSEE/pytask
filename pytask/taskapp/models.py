@@ -252,9 +252,14 @@ class Book (models.Model):
 	name = models.CharField(max_length=512)
 	author = models.CharField(max_length=512)
 	details = models.CharField(max_length=2048)
+	def __unicode__(self):
+		name = self.name or 'Book'
+		return '%s'%(name)
 
 class Proposal(models.Model):
 	user = models.ForeignKey(User)
 	textbooks = models.ManyToManyField(Book,related_name="proposed_textbooks")
 	accepted = models.ForeignKey(Book,related_name="approved_textbook")
-
+	def __unicode__(self):
+		user = self.user.username or 'User'
+		return '%s'%(user)
