@@ -150,10 +150,3 @@ UPLOAD_BASE_DIR = os.path.join(MEDIA_ROOT, 'pytask')
 ALLOWED_INCLUDE_ROOTS = (UPLOAD_BASE_DIR, MEDIA_ROOT,)
 
 
-# mail setting
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'jayparikh111@gmail.com'
-EMAIL_HOST_PASSWORD = 'j!dparikh111'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True

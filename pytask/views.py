@@ -113,10 +113,7 @@ def submit_new_proposal(request):
 		new_proposal.save()
 		for book in books:
 			new_proposal.textbooks.add(book)
-		try:
-			send_mail('Subject here', 'Here is the message.', 'jayparikh111@gmail.com',['jayparikh111@gmail.com'], fail_silently=False)
-		except:
-			pass
+		
 	books = []
 	for i in range(3):
 		books.append(BookForm())
