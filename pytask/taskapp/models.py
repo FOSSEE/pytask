@@ -259,7 +259,7 @@ class Book (models.Model):
 class Proposal(models.Model):
 	user = models.ForeignKey(User)
 	textbooks = models.ManyToManyField(Book,related_name="proposed_textbooks")
-	accepted = models.ForeignKey(Book,related_name="approved_textbook")
+	accepted = models.ForeignKey(Book,related_name="approved_textbook",blank=True,null=True)
 	def __unicode__(self):
 		user = self.user.username or 'User'
 		return '%s'%(user)

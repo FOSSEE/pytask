@@ -44,6 +44,12 @@ def show_msg(user, message, redirect_url=None, url_desc=None):
     }
 
     return render_to_response('show_msg.html', context)
+    
+def is_moderator(user):
+	if user.groups.filter(name = 'moderator').count() > 0 :
+		return True
+	else:
+		return False
 
 def home_page(request):
     """ get the user and display info about the project if not logged in.
@@ -51,26 +57,13 @@ def home_page(request):
     """
 
     user = request.user
+    
     if not user.is_authenticated():
-        return render_to_response("index.html", RequestContext(request, {}))
-
-    profile = user.get_profile()
-
-    claimed_tasks = user.claimed_tasks.all()
-    selected_tasks = user.selected_tasks.all()
-    reviewing_tasks = user.reviewing_tasks.all()
-    unpublished_tasks = user.created_tasks.filter(status="UP").all()
-    can_create_task = True if profile.role != profile_models.ROLES_CHOICES[3][0] else False
-
-    context = {"profile": profile,
-               "claimed_tasks": claimed_tasks,
-               "selected_tasks": selected_tasks,
-               "reviewing_tasks": reviewing_tasks,
-               "unpublished_tasks": unpublished_tasks,
-               "can_create_task": can_create_task
-              }
-
+        return render_to_response("index.html", RequestContext(request, {}))	
+	
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user)}
     return render_to_response("index.html", RequestContext(request, context))
+    
 
 def internship_form(request):
     return render_to_response("internship_forms.html")
@@ -92,9 +85,12 @@ def under_construction(request):
     return render_to_response("under_construction.html")
     
 def submit_new_proposal(request):
+	''' This function is used for users to submit a new proposal.
+		
+	'''
 	user = request.user
-	#if not user.is_authenticated():
-	#	return render_to_response("404.html")
+	if not user.is_authenticated():
+		return render_to_response("404.html")
 	if request.method == "POST" :
 		book_names = request.POST.getlist('book_name')
 		author = request.POST.getlist('author')
@@ -109,7 +105,6 @@ def submit_new_proposal(request):
 		new_proposal = Proposal()
 		new_proposal.user = request.user
 		books = list(Book.objects.all())[-3:]
-		new_proposal.accepted = books[0]
 		new_proposal.save()
 		for book in books:
 			new_proposal.textbooks.add(book)
@@ -119,3 +114,18 @@ def submit_new_proposal(request):
 		books.append(BookForm())
 	return render_to_response("submit_new_proposal.html",{'forms':books},
 						context_instance=RequestContext(request))
+
+def proposal_status(request):
+	user = request.user
+	if not user.is_authenticated():
+		return render_to_response("404.html")
+	return render_to_response("proposal_status.html")
+	
+def new_proposals(request):
+	user = request.user
+	if not user.is_authenticated() or not is_moderator(user):
+		render_to_response("404.html")
+	proposals = Proposal.objects.all()
+	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
+	return render_to_response("view_all_proposals.html",RequestContext(request,context))	 
+	 

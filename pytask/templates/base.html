@@ -131,7 +131,7 @@ along with PyTask.  If not, see <http://www.gnu.org/licenses/>.
   border-top: 1px solid #5d5d5d;
   border-right: 1px solid #5d5d5d;
   line-height: 34px;
-  padding: 0 35px;
+  padding: 0 20px;
   filter: none;
 }
 #cssmenu > ul > li a:hover {
@@ -219,13 +219,21 @@ a
 						<li>
 							<div id='cssmenu'>
 								<ul>
-									<li><a href='/'><span>Home</span></a></li>
+									<li><a href='/'><span>Home</span></a></li>									
 									<li class='has-sub '><a><span>Textbooks</span></a>
 									<ul>
 										<li><a href='/pytask/ConvertedTextBooks/'><span>Converted Textbooks</span></a></li>
 										<li><a href='/pytask/booksUnderProgress/'><span>Textbooks Under Progress</span></a></li>
 									</ul>
 									</li>
+									{% if moderator %}
+									<li class='has-sub '><a><span>View</span></a>
+									<ul>
+										<li><a href='/pytask/new-proposals'><span> New Proposals</span></a></li>
+										<li><a href='#'><span>Users</span></a></li>
+									</ul>
+									</li>									
+									{% else %}
 									<li><a href='/pytask/internship_forms/'><span>Internship Forms</span></a></li>
 									<li class='has-sub '><a><span>About</span></a>
 									<ul>
@@ -233,11 +241,12 @@ a
 										<li><a href='/pytask/about/'><span>Textbook Companion Project</span></a></li>
 									</ul>
 									</li>
-									{% if user_loggedin %}
+									{% endif %}
+									{% if user_loggedin and not moderator %}
 									<li class='has-sub '><a><span>My Account</span></a>
 									<ul>
 										<li><a href='/pytask/submit-new-proposal'><span>Submit New Proposal</span></a></li>
-										<li><a href='#'><span>Proposal Status</span></a></li>
+										<li><a href='/pytask/proposal-status/'><span>Proposal Status</span></a></li>
 										<li><a href='#'><span>Submit Codes</span></a></li>
 										<li><a href='#'><span>My Profile</span></a></li>
 									</ul>
@@ -251,13 +260,15 @@ a
 					<ul style="float:right;">
 						<li id=cssmenu>
 						<ul  style="float:right;">
-						{% if user_loggedin %}
+						{% if not user_loggedin %}
 						<li><a href='/pytask/accounts/login/'><span>Login</span></a></li>
 						<li><a href='/pytask/accounts/register/'><span>Sign-Up</span></a></li>
-						
-						<li><a href='/pytask/accounts/logout/'><span>Logout</span></a></li>
-						{% endif %}
 						</ul></li>
+						{% else %}
+						<li style="margin:7px 20px; color:white;"> Hi {{ user}} ! </li>
+						<li><a href='/pytask/accounts/logout/'><span>Logout</span></a></li>												
+						{% endif %}
+						
 						
                     </ul>
                  
@@ -268,13 +279,6 @@ a
 </div>
 
 
-<ul class="menu-dropdown">
-                        <li><a href="http://google.com" tabindex="-1">Action</a></li>
-                        <li><a href="#anotherAction" tabindex="-1">Another action</a></li>
-                        <li><a href="#" tabindex="-1">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" tabindex="-1">Separated link</a></li>
-                      </ul>
   <div class="container">
         {% if uberbar_message %}
             {% as_uberbar uberbar_message %}

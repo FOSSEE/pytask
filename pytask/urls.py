@@ -48,13 +48,17 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'pytask.views.home_page', name='home_page'),
+    url(r'pytask/$', 'pytask.views.home_page', name='home_page'),
     (r'^admin/', include(admin.site.urls)),
     url(r'internship_forms/$',internship_form),
     url(r'booksUnderProgress/$',books_in_progress),
     url(r'ConvertedTextBooks/$',converted_textbooks),
     url(r'about/$',about_tbc),
     url(r'about/example/$',tbc_example),
-    url(r'submit-new-proposal/$',submit_new_proposal),
+    url(r'submit-new-proposal/$',submit_new_proposal),   
+    url(r'proposal-status/$',proposal_status),
+    
+    url(r'new-proposals/$',new_proposals),
     url(r'accounts/register/$', register,
         {'form_class': CustomRegistrationForm,
          'backend': 'registration.backends.default.DefaultBackend'},
