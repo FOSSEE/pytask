@@ -21,6 +21,33 @@ along with PyTask. If not, see <http://www.gnu.org/licenses/>.
 
 
 {% block content %}
+<style>
+
+table th, table td {
+    padding: 0px 40px 15px;
+    text-align: left;
+}
+</style>
 <center><h2> Proposal Status </h2></center><br/>
 <hr>
+{% for proposal in proposals %}
+<h3>Proposed Books</h3>
+<table>
+{% for book in proposal.textbooks.all %}
+ <tr><td width=20%>{{ forloop.counter }}<td style="text-align:left;"> {{ book.name }} <br>
+ {% endfor %}
+</table>
+<hr>
+<h3>Accepted Book</h3>
+<table>
+<tr style='font-size:15px;'><td><b>{{ proposal.accepted.name }}</b> <td><b> {{proposal.accepted.author }} </b><td><b>{{proposal.accepted.detail }} </b>
+ </table>
+ <table>
+ <form name=proposal{{proposal.id}} method="post" enctype="multipart/form-data">
+	 {% csrf_token %}
+ <tr><td><input type=file name='files{{proposal.id}}'><td><input type="submit" name=proposal{{proposal.id}} value="Submit Examples">
+ </form>
+ </table>
+<hr>
+{% endfor %}
 {% endblock %}

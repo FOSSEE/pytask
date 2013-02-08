@@ -19,25 +19,44 @@ You should have received a copy of the GNU General Public License
 along with PyTask. If not, see <http://www.gnu.org/licenses/>.
 {% endcomment%}
 
-
 {% block content %}
+
+<style>
+
+table th, table td {
+    padding: 0px 40px 15px;
+    text-align: left;
+}
+</style>
 <center><h3> New Proposals </h3></center><br/>
 <hr>
-<table border=1>
-	<tr>
-		<th> User Name</th>
-		<th colspan="3">Proposed Books</th>
-		<th>Accepted Book</th>
-		<th> &nbsp;</th>
-	</tr>
-{% for p in proposals %}
+
+<table>
 <tr>
-<td>{{ p.user }}
-	{% for book in p.textbooks.all %}
-	<td><input type=radio name={{p.user}} value={{book.name}}> {{ book.name }}
-	{% endfor %} 
-	<td>{{ p.accepted }}
-	<td><input type="submit" name="accept" value="nothing" /></td>
-{% endfor %}
+    <th width=20%>User
+    <th>Books Proposed
 </table>
+
+<hr>
+
+{% for p in proposals %}
+<table>
+<form name='form{{p.id}}' method="post">
+	{% csrf_token %}	
+<tr>
+<td rowpan=5 width=20%><b>{{ p.user }}</b>
+	{% for book in p.textbooks.all %}
+    {% if forloop.counter != 1 %}
+        <tr><td>&nbsp;
+    {% endif %}
+
+	<td><input type=radio name="textbook" value={{book.id}}> {{ book.name }}
+	{% endfor %} 
+	<tr><td>&nbsp;<td colspan=2><input type="submit" name="{{ p.id }}" value="Accept" />
+    <input type="submit" name="reject{{ p.id }}" value="Reject" /></td>
+</form>   
+</table><hr>
+{% endfor %}
+
+	
 {% endblock %}

@@ -263,3 +263,18 @@ class Proposal(models.Model):
 	def __unicode__(self):
 		user = self.user.username or 'User'
 		return '%s'%(user)
+		
+class Document(models.Model):
+	name = models.CharField(max_length=512)
+	size = models.FloatField()
+	file = models.FileField(upload_to=settings.MEDIA_ROOT)
+	upload_date = models.DateTimeField(auto_now = True)
+	
+class User_Upload(models.Model):
+	user_proposal = models.ForeignKey(Proposal)
+	example_code = models.ManyToManyField(Document,related_name="example_code")
+	submit_code = models.ManyToManyField(Document,related_name="submit_code")
+	def __unicode__(self):
+		user = self.user_proposal.user.username or 'User'
+		return '%s'%(user)
+		
