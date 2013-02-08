@@ -22,36 +22,16 @@ along with PyTask. If not, see <http://www.gnu.org/licenses/>.
 
 {% block content %}
 
-<style>
-
-table th, table td {
-    padding: 0px 40px 15px;
-    text-align: left;
-}
-</style>
-<center><h3> New Proposals </h3></center><br/>
-<hr>
-
 <table>
 <tr>
-    <th width=20%>User
-    <th>Books Proposed
-</table>
+    <th width=25%> User
+    <th width=50%> Book Accepted
+</tr>
 
-<hr>
-
-{% for p in proposals %}
-<table>
+{% for proposal in proposals %}
 <tr>
-<td rowpan=5 width=20%><b>{{ p.user }}</b>
-	{% for book in p.textbooks.all %}
-    {% if forloop.counter != 1 %}
-        <tr><td>&nbsp;
-    {% endif %}
-
-	<td><input type=radio name={{p.user}} value={{book.name}}> {{ book.name }}
-	{% endfor %} 
-	<tr><td>&nbsp;<td colspan=2><input type="submit" name="{{ p.id }}" value="Accept" />
-    <input type="submit" name="reject{{ p.id }}" value="Reject" /></td></table><hr>
+    <td><a href="/pytask/users/{{ proposal.user.id }}">{{ proposal.user }}</a>
+    <td><a href=#>{{ proposal.accepted }}</a>
 {% endfor %}
+</table>
 {% endblock %}

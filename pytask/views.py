@@ -24,15 +24,14 @@ __authors__ = [
     ]
 
 
-from django.shortcuts import render_to_response,redirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from pytask.profile import models as profile_models
+from pytask.profile.models import *
 from pytask.taskapp.forms import *
 from django.http import HttpResponse
 from pytask.taskapp.models import *
 from django.core.mail import send_mail
-import datetime
 
 def show_msg(user, message, redirect_url=None, url_desc=None):
     """ simply redirect to homepage """
@@ -113,44 +112,36 @@ def submit_new_proposal(request):
 	books = []
 	for i in range(3):
 		books.append(BookForm())
-	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"forms":books}	
-	return render_to_response("submit_new_proposal.html",RequestContext(request,context))
+	return render_to_response("submit_new_proposal.html",{'forms':books},
+						context_instance=RequestContext(request))
 
 def proposal_status(request):
 	user = request.user
 	if not user.is_authenticated():
 		return render_to_response("404.html")
-	proposals = Proposal.objects.filter(user=user)
-	if request.method == "POST":		
-		for i in proposals:
-			if "proposal" + str(i.id) in request.POST:
-				doc_file = request.FILES['files' + str(i.id)]
-				d = Document()
-				d.name = doc_file.name
-				d.size = doc_file.size
-				d.file = doc_file
-				d.upload_date = datetime.datetime.now()
-				d.save()
-				
-				
-	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}	
-	return render_to_response("proposal_status.html",RequestContext(request,context))
+	return render_to_response("proposal_status.html")
 	
 def new_proposals(request):
 	user = request.user
 	if not user.is_authenticated() or not is_moderator(user):
 		render_to_response("404.html")
-	proposals = Proposal.objects.exclude(accepted__isnull=False)
-	if request.method == "POST":
-		for i in proposals:
-			if str(i.id) in request.POST:
-				book_id = request.POST['textbook']
-				i.accepted = Book.objects.get(id=book_id)
-				i.save()
-				return redirect("/pytask/new-proposals/")
-			if 'reject' + str(i.id) in request.POST:
-				print 'reject' + i.id
-				pass
+	proposals = Proposal.objects.all()
 	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
 	return render_to_response("view_new_proposals.html",RequestContext(request,context))	 
-	 
+
+def view_all_users(request):
+    user = request.user
+    if not user.is_authenticated() or not is_moderator(user):
+        render_to_response("404.html")
+    proposals = Proposal.objects.all()
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
+    return render_to_response("view_all_users.html",RequestContext(request,context))
+
+def user_details(request,user_id=None):
+    user = request.user
+    if not user.is_authenticated() or not is_moderator(user):
+        render_to_response("404.html")
+    profile = User.objects.filter(id=user_id)
+    details = Profile.objects.filter(user=profile)
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"details":details}
+    return render_to_response("user_details.html",RequestContext(request,context))

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% comment %}
+Copyright 2011 Authors of PyTask.
+
+This file is part of PyTask.
+
+PyTask is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PyTask is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+for more details.
+
+You should have received a copy of the GNU General Public License
+along with PyTask. If not, see <http://www.gnu.org/licenses/>.
+{% endcomment%}
+
+
+{% block content %}
+<script>
+
+function data(showContent,showHideDiv,a)
+{
+    var con = document.getElementById(showContent);
+    var ele=document.getElementById(showHideDiv);
+    var atag=document.getElementById(a);
+    if (ele.style.display=="block")
+    {
+        con.style.display = "none"
+        ele.style.display = "none";
+	    atag.text = summary;
+    }
+    else
+    {
+        con.style.display = "block";
+        ele.style.display = "block";
+    }
+}
+</script>
+
+<style>
+
+table th, table td {
+    text-align: left;
+}
+</style>
+
+{% for user in details %}
+
+    <tr><td><a id='a{{forloop.counter}}' onClick="data('contentDiv{{forloop.counter}}','myContent{{forloop.counter}}','a{{forloop.counter}}');" style='cursor:pointer;'>User Details</a>
+
+    <div id="contentDiv{{forloop.counter}}" style="display:none;">
+      <div id="myContent{{forloop.counter}}" style="display: none;">
+      <table>
+        <tr><td width=20%><b>Full Name:</b> <td>{{ user.full_name }}  
+        <tr><td><b>About:</b> <td>{{ user.aboutme }}  
+        <tr><td><b>DOB:</b> <td>{{ user.dob }}  
+        <tr><td><b>Gender:</b> <td>{{ user.gender }}  
+        <tr><td><b>Address:</b> <td>{{ user.address }}    
+        <tr><td><b>Phone:</b> <td>{{ user.phonenum }}  
+      </table>
+      </div>
+    </div>
+
+{% endfor %}
+
+{% endblock %}
