@@ -24,7 +24,7 @@ __authors__ = [
     ]
 
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
 
 from pytask.profile.models import *
@@ -32,6 +32,7 @@ from pytask.taskapp.forms import *
 from django.http import HttpResponse
 from pytask.taskapp.models import *
 from django.core.mail import send_mail
+import datetime
 
 def show_msg(user, message, redirect_url=None, url_desc=None):
     """ simply redirect to homepage """
@@ -116,32 +117,82 @@ def submit_new_proposal(request):
 						context_instance=RequestContext(request))
 
 def proposal_status(request):
-	user = request.user
-	if not user.is_authenticated():
-		return render_to_response("404.html")
-	return render_to_response("proposal_status.html")
+    user = request.user
+    if not user.is_authenticated():
+        return render_to_response("404.html")
+    proposals = Proposal.objects.filter(user=user)
+    if request.method == "POST":		
+        for i in proposals:
+            if "proposal" + str(i.id) in request.POST:
+                upload,created = User_Upload.objects.get_or_create(user_proposal=i)
+                if created :
+                    upload.save()
+                doc_file = request.FILES['files' + str(i.id)]
+                d = Document()
+                d.name = doc_file.name
+                d.size = doc_file.size
+                d.file = doc_file
+                d.upload_date = datetime.datetime.now()
+                d.save()
+                doc = Document.objects.order_by("-id")[0]
+                upload.example_code.add(doc)
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}	
+    return render_to_response("proposal_status.html",RequestContext(request,context))
 	
 def new_proposals(request):
 	user = request.user
 	if not user.is_authenticated() or not is_moderator(user):
 		render_to_response("404.html")
-	proposals = Proposal.objects.all()
+	proposals = Proposal.objects.exclude(accepted__isnull=False)
+	if request.method == "POST":
+		for i in proposals:
+			if str(i.id) in request.POST:
+				book_id = request.POST['textbook']
+				i.accepted = Book.objects.get(id=book_id)
+				i.save()
+				return redirect("/pytask/new-proposals/")
+			if 'reject' + str(i.id) in request.POST:
+				print 'reject' + i.id
+				pass
 	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
-	return render_to_response("view_new_proposals.html",RequestContext(request,context))	 
+	return render_to_response("view_new_proposals.html",RequestContext(request,context))
 
 def view_all_users(request):
     user = request.user
     if not user.is_authenticated() or not is_moderator(user):
         render_to_response("404.html")
-    proposals = Proposal.objects.all()
-    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
+    profiles = Profile.objects.all()
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"profiles":profiles}
     return render_to_response("view_all_users.html",RequestContext(request,context))
 
 def user_details(request,user_id=None):
     user = request.user
     if not user.is_authenticated() or not is_moderator(user):
         render_to_response("404.html")
-    profile = User.objects.filter(id=user_id)
-    details = Profile.objects.filter(user=profile)
-    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"details":details}
+    profile = User.objects.get(id=user_id)
+    details = Profile.objects.get(user=profile)
+    proposals = Proposal.objects.filter(user=profile)
+    uploads = []
+    for proposal in proposals:
+        uploads.append(User_Upload.objects.filter(user_proposal=proposal))
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"detail":details,"uploads":uploads}
     return render_to_response("user_details.html",RequestContext(request,context))
+
+def view_all_proposals(request):
+	user = request.user
+	if not user.is_authenticated() and not is_moderator(user):
+		render_to_response("404.html")
+	proposals = Proposal.objects.all()
+	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
+    return render_to_response("view_all_proposals.html",RequestContext(request,context))
+
+def proposal_details(request,proposal_id=None):
+	user = request.user
+	if not user.is_authenticated() and not is_moderator(user):
+		render_to_response("404.html")
+	proposal = Proposal.objects.get(id = proposal_id)
+	user_uploads = User_Upload.objects.get(proposal = proposal)
+	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"uploads":user_uploads}
+    return render_to_response("proposal_details.html",RequestContext(request,context))
+
+	

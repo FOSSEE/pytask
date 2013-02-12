@@ -28,7 +28,7 @@ from django.contrib import admin
 
 from pytask.taskapp.models import Task, TaskComment, TaskClaim,\
                                   WorkReport, ReportComment, PyntRequest,\
-                                  TextBook,Book,Proposal,Document
+                                  TextBook,Book,Proposal,Document,User_Upload
 
 admin.site.register(Task)
 admin.site.register(TaskComment)
@@ -40,3 +40,4 @@ admin.site.register(PyntRequest)
 admin.site.register(Book)
 admin.site.register(Proposal)
 admin.site.register(Document)
+admin.site.register(User_Upload)

@@ -58,6 +58,8 @@ urlpatterns = patterns('',
     url(r'submit-new-proposal/$',submit_new_proposal),
     url(r'users/$',view_all_users),
     url(r'users/(?P<user_id>\d+)/$', user_details),
+    url(r'proposals/$',view_all_proposals),
+    url(r'proposals/(?P<proposal_id>\d+)/$',proposal_details),
     url(r'proposal-status/$',proposal_status),
     
     url(r'new-proposals/$',new_proposals),
