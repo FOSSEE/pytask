@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% comment %}
+Copyright 2011 Authors of PyTask.
+
+This file is part of PyTask.
+
+PyTask is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PyTask is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+for more details.
+
+You should have received a copy of the GNU General Public License
+along with PyTask. If not, see <http://www.gnu.org/licenses/>.
+{% endcomment%}
+
+
+{% block content %}
+<script>
+
+function data(showContent,showHideDiv,a)
+{
+    var con = document.getElementById(showContent);
+    var ele=document.getElementById(showHideDiv);
+    var atag=document.getElementById(a);
+    if (ele.style.display=="block")
+    {
+        con.style.display = "none"
+        ele.style.display = "none";
+	    atag.text = summary;
+    }
+    else
+    {
+        con.style.display = "block";
+        ele.style.display = "block";
+    }
+}
+</script>
+
+<style>
+
+table th, table td {
+    text-align: left;
+}
+</style>
+
+<table>
+{% for proposal in proposals %}
+
+    <tr><td><a id='a{{forloop.counter}}' onClick="data('contentDiv{{forloop.counter}}','myContent{{forloop.counter}}','a{{forloop.counter}}');" style='cursor:pointer;'>Proposal&nbsp;{{ forloop.counter }}</a>
+
+    <div id="contentDiv{{forloop.counter}}" style="display:none;">
+      <div id="myContent{{forloop.counter}}" style="display: none;">
+      
+      <table>
+        <tr><td width=35%>Accepted Textbook<td>{{ proposal.accepted }}
+      
+        <form name=proposal{{proposal.id}} method="post" enctype="multipart/form-data">
+	    {% csrf_token %}
+        <tr><td><input type=file name='files{{proposal.id}}'><td width=20%><input type="submit" name=ecode{{proposal.id}} value="Submit Example Codes"><td><input type="submit" name=code{{proposal.id}} value="Submit Codes">
+        </form>
+        </table>
+      </div>
+    </div>
+
+{% endfor %}
+</table>
+
+{% endblock %}

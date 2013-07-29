@@ -179,20 +179,19 @@ def user_details(request,user_id=None):
     return render_to_response("user_details.html",RequestContext(request,context))
 
 def view_all_proposals(request):
-	user = request.user
-	if not user.is_authenticated() and not is_moderator(user):
-		render_to_response("404.html")
-	proposals = Proposal.objects.all()
-	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
+    user = request.user
+    if not user.is_authenticated() and not is_moderator(user):
+        render_to_response("404.html")
+    proposals = Proposal.objects.all()
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"proposals":proposals}
     return render_to_response("view_all_proposals.html",RequestContext(request,context))
 
 def proposal_details(request,proposal_id=None):
-	user = request.user
-	if not user.is_authenticated() and not is_moderator(user):
-		render_to_response("404.html")
-	proposal = Proposal.objects.get(id = proposal_id)
-	user_uploads = User_Upload.objects.get(proposal = proposal)
-	context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"uploads":user_uploads}
+    user = request.user
+    if not user.is_authenticated() and not is_moderator(user):
+        render_to_response("404.html")
+    proposal = Proposal.objects.get(id = proposal_id)
+    user_uploads = User_Upload.objects.get(proposal = proposal)
+    context = {"user_loggedin":True,"user":user,"moderator":is_moderator(user),"uploads":user_uploads}
     return render_to_response("proposal_details.html",RequestContext(request,context))
-
 	
